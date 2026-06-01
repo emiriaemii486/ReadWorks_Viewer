@@ -3,12 +3,11 @@
 <head>
 <link rel="stylesheet" href="style.css">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Viewer</title>
 </head>
 
 <body>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <div id="wrap">
   <div id="back">
     <a href="javascript:history.back()">戻る</a>
@@ -23,13 +22,20 @@ window.addEventListener("DOMContentLoaded", () => {
   
   const viewer = document.getElementById("viewer");
   const titleEl = document.getElementById("title");
-  const params = new URLSearchParams(location.search);
-  const file = params.get("file");
-  const saveKey = "viewer_" + file;
+  const params = new URLSearchParams(location.search);  
+  const book = params.get("book");
+  const id = params.get("id");
+  const file = `${book}/text/${encodeURIComponent(id)}.txt`;
+  const saveKey = "viewer_" + id;
   
   let lines = [];
   let index = -1;
-
+  
+  if (!book || !id) {
+    document.getElementById("title").textContent = "URLが不正です";
+    throw new Error("invalid url");
+  }
+  
   fetch(file)
     .then(r => r.text())
     .then(text => {
@@ -88,8 +94,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (index > lines.length - 1) index = lines.length - 1;
 
   render();
-});
-
+  });
 });
 </script>
 </body>
