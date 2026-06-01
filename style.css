@@ -23,14 +23,26 @@ body {
 
 a {
   display: block;
-  color: blue;
-  text-decoration: underline;
+  padding: 0.4em 0;
+  text-decoration: none;
 }
 
 #back {
     position: absolute;
     top: -30px;
     left: 0;
+}
+
+h1 {
+  margin-bottom: 0.3em;
+}
+
+.desc {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  line-height: 1.5;
 }
 
 @media (max-width: 600px) {
