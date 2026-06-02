@@ -22,6 +22,12 @@ body {
     white-space: pre-wrap;
 }
 
+#quote {
+    margin-bottom: 2em;
+    color: #333;
+    white-space: pre-wrap;
+}
+
 a {
   display: block;
   padding: 0.4em 0;

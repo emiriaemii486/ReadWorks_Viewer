@@ -13,7 +13,7 @@
     <a href="javascript:history.back()">戻る</a>
   </div>
   <h1 id="title"></h1>
-
+  <div id="quote"></div>
   <div id="viewer"></div>
 </div>
 
@@ -24,6 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const titleEl = document.getElementById("title");
   const params = new URLSearchParams(location.search);  
   const book = params.get("book");
+  const quoteEl = document.getElementById("quote");
   const id = params.get("id");
   const file = `${book}/text/${encodeURIComponent(id)}.txt`;
   const saveKey = "viewer_" + id;
@@ -37,22 +38,41 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   
   fetch(file)
-    .then(r => r.text())
-    .then(text => {
-      lines = text.replace(/\r/g, "").split("\n");
-      titleEl.textContent = lines[0] || "";
-      lines = lines.slice(1);
+  .then(r => r.text())
+  .then(text => {
+    lines = text.replace(/\r/g, "").split("\n");
 
-      const saved = localStorage.getItem(saveKey);
+    titleEl.textContent = lines[0] || "";
 
-      if (saved !== null) {
-        index = parseInt(saved, 10);
-      } else {
-        index = -1;
+    let quoteLines = [];
+    let bodyStart = 1;
+
+    if (lines[1]?.startsWith("『")) {
+
+      for (let i = 1; i < lines.length; i++) {
+        quoteLines.push(lines[i]);
+
+        if (lines[i].includes("』")) {
+          bodyStart = i + 1;
+          break;
+        }
       }
 
-      render();
-    });
+      quoteEl.textContent = quoteLines.join("\n");
+    }
+
+    lines = lines.slice(bodyStart);
+
+    const saved = localStorage.getItem(saveKey);
+
+    if (saved !== null) {
+      index = parseInt(saved, 10);
+    } else {
+      index = -1;
+    }
+
+    render();
+  });
       
   function render() {
 
