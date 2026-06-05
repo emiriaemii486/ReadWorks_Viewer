@@ -10,30 +10,84 @@
 <div id="wrap">
   <h1>マナミの記録</h1>
   <p class="desc">
-    おっとりでゆるゆるふわふわとした、不思議で少しエッチな記録です。
+    どこでも、いつでもカウセリングができる会社で勤めているカウンセラーのマナミ。
+    彼女は担当するキミとカウセリングをしながら、友達として雑談を交える。
+    そんなカウセリングと日常を送る彼女の記録。
   </p>
-
-  <!--ここに追加 -->
-  <a href="../viewer.html?book=meet_to_angel&id=0520">書いてみたよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0521">いつもの日常だよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0522">今日は雨だったよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0523">部屋の片付けをしたよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0524part1">5月24日。(昼)</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0524part2">5月24日。(夜)</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0525">料理してみたよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0526">雑誌を読んだよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0527">換気をしたよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0528">掃除をしたよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0530">5月30日。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0602">今日の気づき(6月2日)。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0603">晩酌したよ。</a>
-  <a href="../viewer.html?book=meet_to_angel&id=0604">少し遅めに帰宅したよ。</a>
- <!--ここまで　-->
-  
+  <div id="list"></div>
   <div style="margin-top: 20px;">
   <a href="../">戻る</a>
 </div>
 
 </div>
+<script>
+const first = [
+  /*最初ここに入れる*/
+];
+
+const middle = [
+  /*日常ここに入れる*/
+  {id:"clothes", title:"服を見た。"},
+  {id:"revisit", title:"また行った。"},
+  {id:"vegetables", title:"料理してみたよ。"},
+  {id:"magazine", title:"雑誌を読んだよ。"},
+  {id:"ventilation", title:"換気をしたよ。"},
+  {id:"cleaning", title:"掃除をしたよ。"},
+  {id:"movie", title:"部屋でゆっくりした。"},
+  {id:"train", title:"今日の気づき。"},
+  {id:"beer", title:"晩酌したよ。"},
+  {id:"late", title:"少し遅めに帰宅したよ。"}
+];
+
+const last = [
+  /*最後ここに入れる*/
+];
+
+function shuffle(array){
+  const arr = [...array];
+
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  return arr;
+}
+
+// 保存済み順番取得
+let savedOrder = localStorage.getItem("meet_to_angel_order");
+
+let shuffledMiddle;
+
+if(savedOrder){
+  shuffledMiddle = JSON.parse(savedOrder);
+}else{
+  shuffledMiddle = shuffle(middle);
+
+  localStorage.setItem(
+    "meet_to_angel_order",
+    JSON.stringify(shuffledMiddle)
+  );
+}
+
+const books = [
+  ...first,
+  ...shuffledMiddle,
+  ...last
+];
+
+const list = document.getElementById("list");
+
+books.forEach(book => {
+  const a = document.createElement("a");
+
+  a.href =
+    `../viewer.html?book=meet_to_angel&id=${book.id}`;
+
+  a.textContent = book.title;
+
+  list.appendChild(a);
+});
+</script>
 </body>
 </html>
