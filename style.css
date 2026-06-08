@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: serif;
+    font-family:serif;
     background: #efe7d2;
     color: #222;
 }
@@ -34,8 +34,11 @@ body {
 }
 
 #quote {
-    margin-bottom: 0.5em;
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 1.4em;
     white-space: pre-wrap;
+    font-style: italic;
 }
 
 a {

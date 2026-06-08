@@ -40,38 +40,47 @@ window.addEventListener("DOMContentLoaded", () => {
   const file =
     `${book}/text/${encodeURIComponent(id)}.txt`;
 
-  fetch(file)
-    .then(r => r.text())
-    .then(text => {
+fetch(file)
+  .then(r => r.text())
+  .then(text => {
 
-      const lines =
-        text.replace(/\r/g, "").split("\n");
+    const lines =
+      text.replace(/\r/g, "").split("\n");
 
-      titleEl.textContent = lines[0] || "";
+    titleEl.textContent = lines[0] || "";
 
-      let quoteLines = [];
-      let bodyStart = 1;
+    let quoteLines = [];
+    let bodyLines = [];
 
-      if (lines[1]?.startsWith("『")) {
+    let inQuote = false;
 
-        for (let i = 1; i < lines.length; i++) {
+    for (let i = 1; i < lines.length; i++) {
 
-          quoteLines.push(lines[i]);
+      const line = lines[i];
 
-          if (lines[i].includes("』")) {
-            bodyStart = i + 1;
-            break;
-          }
-        }
-
-        quoteEl.textContent =
-          quoteLines.join("\n");
+      if (line === "『") {
+        inQuote = true;
+        continue;
       }
 
-      viewer.textContent =
-        lines.slice(bodyStart).join("\n");
-    });
+      if (line === "』") {
+        inQuote = false;
+        continue;
+      }
 
+      if (inQuote) {
+        quoteLines.push(line);
+      } else {
+        bodyLines.push(line);
+      }
+    }
+
+    quoteEl.textContent =
+      quoteLines.join("\n");
+
+    viewer.textContent =
+      bodyLines.join("\n");
+  });
 });
 </script>
 
