@@ -14,81 +14,21 @@
     彼女は担当するキミとカウセリングをしながら、友達として雑談を交える。
     そんなカウセリングと日常を送る彼女の記録。
   </p>
-  <div id="list"></div>
+  <div id="list">
+    <a href="../viewer.html?book=meet_to_angel&id=first_step">キミと初めて会ったあの日だよ。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=center_part">センタパート。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=clothes">服を見た。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=revisit">また行った。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=vegetables">料理してみたよ。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=magazine">雑誌を読んだよ。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=ventilation">換気をしたよ。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=cleaning">掃除をしたよ。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=movie">部屋でゆっくりした。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=beer">晩酌したよ。</a>
+    <a href="../viewer.html?book=meet_to_angel&id=late">少し遅めに帰宅したよ。</a>
+  </div>
   <div style="margin-top: 20px;">
   <a href="../">戻る</a>
 </div>
-
-</div>
-<script>
-const first = [
-  /*最初ここに入れる*/
-  {id:"first_step", title:"キミと初めて会ったあの日だよ。"},
-  {id:"center_part", title:"センタパート。"}
-];
-
-const middle = [
-  /*日常ここに入れる*/
-  {id:"clothes", title:"服を見た。"},
-  {id:"revisit", title:"また行った。"},
-  {id:"vegetables", title:"料理してみたよ。"},
-  {id:"magazine", title:"雑誌を読んだよ。"},
-  {id:"ventilation", title:"換気をしたよ。"},
-  {id:"cleaning", title:"掃除をしたよ。"},
-  {id:"movie", title:"部屋でゆっくりした。"},
-  {id:"beer", title:"晩酌したよ。"},
-  {id:"late", title:"少し遅めに帰宅したよ。"}
-];
-
-const last = [
-  /*最後ここに入れる*/
-];
-
-function shuffle(array){
-  const arr = [...array];
-
-  for(let i = arr.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-
-  return arr;
-}
-
-// 保存済み順番取得
-let savedOrder = localStorage.getItem("meet_to_angel_order");
-
-let shuffledMiddle;
-
-if(savedOrder){
-  shuffledMiddle = JSON.parse(savedOrder);
-}else{
-  shuffledMiddle = shuffle(middle);
-
-  localStorage.setItem(
-    "meet_to_angel_order",
-    JSON.stringify(shuffledMiddle)
-  );
-}
-
-const books = [
-  ...first,
-  ...shuffledMiddle,
-  ...last
-];
-
-const list = document.getElementById("list");
-
-books.forEach(book => {
-  const a = document.createElement("a");
-
-  a.href =
-    `../viewer.html?book=meet_to_angel&id=${book.id}`;
-
-  a.textContent = book.title;
-
-  list.appendChild(a);
-});
-</script>
 </body>
 </html>
