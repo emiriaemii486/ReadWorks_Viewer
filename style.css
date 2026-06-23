@@ -2,7 +2,6 @@ html {
     -webkit-text-size-adjust: 100%;
 }
 
-
 body {
     font-size: 16px;
     line-height: 1.8;
@@ -13,7 +12,7 @@ body {
 }
 
 #list a {
-    display: block;
+	display: block;
     font-size: 1.1em;
     line-height: 1.8;
     white-space: normal;
