@@ -1,2 +1,8 @@
 plugins:
-  -  jekyll-sitemap
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: "ReadWorks_Viewer/viewer.html"
+    values:
+      sitemap: false
